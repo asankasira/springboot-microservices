@@ -1,5 +1,9 @@
 package org.asanka.javaguide.controller;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.asanka.javaguide.dto.UserDTO;
@@ -10,7 +14,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+@Tag(
+        name = "CRUD REST api for user resource",
+        description = "User API Docs"
+)
 @RestController
 @RequestMapping("v1/users")
 @AllArgsConstructor
@@ -18,6 +25,14 @@ public class UserController {
 
     private final UserService userService;
 
+    @Operation(
+            summary = "Create user REST API",
+            description = "create and save user in DB"
+    )
+    @ApiResponse(
+            responseCode = "201",
+            description = "HTTP Status 201 Created"
+    )
     @PostMapping
     public ResponseEntity<UserDTO> createUser(@RequestBody @Valid UserDTO userDto) {
         UserDTO savedUser = userService.createUser(userDto);
