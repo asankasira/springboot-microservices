@@ -1,5 +1,6 @@
 package org.asanka.javaguide.controller;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.asanka.javaguide.dto.UserDTO;
 import org.asanka.javaguide.service.UserService;
@@ -18,7 +19,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDto) {
+    public ResponseEntity<UserDTO> createUser(@RequestBody @Valid UserDTO userDto) {
         UserDTO savedUser = userService.createUser(userDto);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
@@ -37,7 +38,7 @@ public class UserController {
 
     @PutMapping("{id}")
     public ResponseEntity<UserDTO> updateUser(@PathVariable("id") Long userId,
-                           @RequestBody UserDTO dto) {
+                           @RequestBody @Valid UserDTO dto) {
       UserDTO updated = userService.updateUser(userId, dto);
       return ResponseEntity.ok(updated);
     }
