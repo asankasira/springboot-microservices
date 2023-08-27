@@ -1,6 +1,7 @@
 package org.asankasi.javaguide.controller;
 
 import lombok.AllArgsConstructor;
+import org.asankasi.javaguide.dto.ApiResponseDTO;
 import org.asankasi.javaguide.dto.EmployeeDTO;
 import org.asankasi.javaguide.service.EmployeeService;
 import org.springframework.http.HttpStatus;
@@ -21,7 +22,7 @@ public class EmployeeController {
     }
 
     @GetMapping("{emp-id}")
-    public ResponseEntity<EmployeeDTO> getEmployeeById(@PathVariable("emp-id") Long employeeId) {
+    public ResponseEntity<ApiResponseDTO> getEmployeeById(@PathVariable("emp-id") Long employeeId) {
         var employee = employeeService.getEmployeeById(employeeId);
         return ResponseEntity.ok(employee);
     }

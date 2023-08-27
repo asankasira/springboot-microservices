@@ -4,6 +4,9 @@ plugins {
     id("io.spring.dependency-management") version "1.1.3"
 }
 
+extra["springCloudVersion"] = "2022.0.4"
+extra["mapStructVersion"] = "1.5.5.Final"
+
 allprojects {
     repositories {
         mavenCentral()
@@ -29,13 +32,10 @@ subprojects {
     }
 
     dependencies {
-        implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-        implementation("org.springframework.boot:spring-boot-starter-web")
-        implementation("org.mapstruct:mapstruct:1.5.5.Final")
-        compileOnly("org.projectlombok:lombok")
-        runtimeOnly("org.postgresql:postgresql")
-        annotationProcessor("org.projectlombok:lombok")
-        annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final")
+        val springCloudVersion: String by project
+        val mapStructVersion: String by project
+        implementation(enforcedPlatform("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"))
+        implementation(enforcedPlatform("org.mapstruct:mapstruct:$mapStructVersion"))
         testImplementation("org.springframework.boot:spring-boot-starter-test")
     }
 
@@ -43,7 +43,7 @@ subprojects {
         useJUnitPlatform()
     }
 
-//    tasks.register("prepareKotlinBuildScriptModel"){}
+    tasks.register("prepareKotlinBuildScriptModel"){}
 }
 
 tasks.withType<Jar> {
