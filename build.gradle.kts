@@ -32,11 +32,15 @@ subprojects {
     }
 
     dependencies {
-        val springCloudVersion: String by project
         val mapStructVersion: String by project
-        implementation(enforcedPlatform("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"))
         implementation(enforcedPlatform("org.mapstruct:mapstruct:$mapStructVersion"))
         testImplementation("org.springframework.boot:spring-boot-starter-test")
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
+        }
     }
 
     tasks.withType<Test> {
