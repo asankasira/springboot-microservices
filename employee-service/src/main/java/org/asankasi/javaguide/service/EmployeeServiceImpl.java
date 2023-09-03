@@ -1,20 +1,18 @@
 package org.asankasi.javaguide.service;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
-import io.github.resilience4j.retry.annotation.Retry;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.asankasi.javaguide.client.DepApiClient;
+import org.asankasi.javaguide.client.OrgApiClient;
 import org.asankasi.javaguide.dto.ApiResponseDTO;
 import org.asankasi.javaguide.dto.DepartmentDTO;
 import org.asankasi.javaguide.dto.EmployeeDTO;
+import org.asankasi.javaguide.dto.OrganizationDTO;
 import org.asankasi.javaguide.entity.Employee;
 import org.asankasi.javaguide.exception.ResourceNotFoundException;
 import org.asankasi.javaguide.repository.EmployeeRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import static org.asankasi.javaguide.mapper.EmployeeMapper.INSTANCE;
 
@@ -25,8 +23,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepository repository;
 //    private final RestTemplate restTemplate;
-    private final WebClient webClient;
-//    private final DepApiClient apiClient;
+//    private final WebClient webClient;
+    private final DepApiClient depApiClient;
+    private final OrgApiClient orgApiClient;
 
     @Override
     public EmployeeDTO saveEmployee(EmployeeDTO dto) {
@@ -49,17 +48,27 @@ public class EmployeeServiceImpl implements EmployeeService {
 //        DepartmentDTO departmentDTO = response.getBody();
 
         //synchronous communication with WebClient
-        DepartmentDTO departmentDTO = webClient.get()
-                .uri("http://localhost:9191/api/departments/{dep-code}", empDto.getDepartmentCode())
-                .retrieve()
-                .bodyToMono(DepartmentDTO.class)
-                .block();
+//        DepartmentDTO departmentDTO = webClient.get()
+////                .uri("http://localhost:8080/api/departments/{dep-code}", empDto.getDepartmentCode())
+//                .uri("http://localhost:8080/api/departments/" + empDto.getDepartmentCode())
+//                .retrieve()
+//                .bodyToMono(DepartmentDTO.class)
+//                .block();
 
-//        DepartmentDTO departmentDTO = apiClient.getDepartmentByCode(empDto.getDepartmentCode());
+        DepartmentDTO departmentDTO = depApiClient.getDepartmentByCode(empDto.getDepartmentCode());
+        OrganizationDTO organizationDTO = orgApiClient.getOrganizationByCode(empDto.getOrganizationCode());
+
+//        OrganizationDTO organizationDTO = webClient.get()
+////                .uri("http://localhost:8083/api/organizations/{code}", empDto.getOrganizationCode())
+//                .uri("http://localhost:8083/api/organizations/" + empDto.getOrganizationCode())
+//                .retrieve()
+//                .bodyToMono(OrganizationDTO.class)
+//                .block();
 
         var apiResponse = new ApiResponseDTO();
         apiResponse.setEmployeeDTO(empDto);
         apiResponse.setDepartmentDTO(departmentDTO);
+        apiResponse.setOrganizationDTO(organizationDTO);
 
         return apiResponse;
     }
