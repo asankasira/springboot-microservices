@@ -10,9 +10,10 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-bus-amqp")
     implementation("io.micrometer:micrometer-observation")
     implementation("io.micrometer:micrometer-tracing-bridge-brave")
-//    implementation("io.micrometer:micrometer-registry-prometheus")
     implementation("io.zipkin.reporter2:zipkin-reporter-brave")
     implementation("io.github.openfeign:feign-micrometer")
+    implementation("org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j")
+    implementation("org.springframework.boot:spring-boot-starter-aop")
 
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("org.postgresql:postgresql")

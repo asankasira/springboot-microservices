@@ -13,10 +13,10 @@ public class EmployeeServiceApplication {
 //    public RestTemplate getRestTemplate() {
 //        return new RestTemplate();
 //    }
-//    @Bean
-//    public WebClient retrieveWebClient() {
-//        return WebClient.builder().build();
-//    }
+    @Bean
+    public WebClient retrieveWebClient() {
+        return WebClient.builder().build();
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(EmployeeServiceApplication.class, args);
