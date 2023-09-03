@@ -14,6 +14,7 @@ dependencies {
     implementation("io.github.openfeign:feign-micrometer")
     implementation("org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j")
     implementation("org.springframework.boot:spring-boot-starter-aop")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui")
 
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("org.postgresql:postgresql")

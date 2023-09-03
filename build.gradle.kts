@@ -6,6 +6,7 @@ plugins {
 
 extra["springCloudVersion"] = "2022.0.4"
 extra["mapStructVersion"] = "1.5.5.Final"
+extra["springDocVersion"] = "2.2.0"
 
 allprojects {
     repositories {
@@ -34,6 +35,7 @@ subprojects {
     dependencies {
         val mapStructVersion: String by project
         implementation(enforcedPlatform("org.mapstruct:mapstruct:$mapStructVersion"))
+        implementation(platform("org.springdoc:springdoc-openapi-starter-webmvc-ui:${property("springDocVersion")}"))
         testImplementation("org.springframework.boot:spring-boot-starter-test")
     }
 

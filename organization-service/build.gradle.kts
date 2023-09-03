@@ -9,6 +9,7 @@ dependencies {
     implementation("io.micrometer:micrometer-observation")
     implementation("io.micrometer:micrometer-tracing-bridge-brave")
     implementation("io.zipkin.reporter2:zipkin-reporter-brave")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui")
 
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("org.postgresql:postgresql")
