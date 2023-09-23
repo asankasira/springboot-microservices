@@ -1,0 +1,6 @@
+rabbitmq:
+  order-queue: "order_queue"
+  email-queue: "email_queue"
+  exchange: "order_exchange"
+  routing-key: "order_routing_key"
+  email-routing-key: "email_routing_key"
